@@ -1,92 +1,61 @@
 package class_game.entity;
 
-import class_game.GameSession;
 import class_game.weapon.Weapon;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Entity {
     private String name;
     private int hp;
-    private int damage;
-    private List <Weapon> weapons;
+    private int baseDamage;
+    private List<Weapon> inventory;
     private boolean isAlive;
 
-    public Entity(String name, int hp, int damage) {
+    public Entity(String name, int hp, int baseDamage) {
         this.name = name;
         this.hp = hp;
-        this.damage = damage;
-        this.weapons = new ArrayList<>();
+        this.baseDamage = baseDamage;
+        this.inventory = new ArrayList<>();
         this.isAlive = true;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public void putNewWeapon(Weapon weapon) {
-        weapons.add(weapon);
-    }
-
-    public List<Weapon> getWeaponList() {return List.copyOf(weapons);}
-
-    public abstract void takeAction(Entity target);
-
-    public void attack(Entity target) {
-        if (damage < target.getHp()) {
-            target.setHp(target.getHp() - damage);
-        } else {
-            target.setHp(0);
-            System.out.println(target.getName() + " был повержен " + name);
-            GameSession.setMonstersKilled(GameSession.getMonstersKilled() + 1);
-
+    public void takeAction(Entity target) {
+        if (!this.isAlive()) {
+            System.out.println(this.getName() + " мертв и не может атаковать!");
+            return;
+        }
+        if (!target.isAlive()) {
+            System.out.println(target.getName() + " уже мертв, " + this.getName() + " бьет воздух.");
+            return;
         }
 
-
+        performAction(target);
     }
 
-    public void attackWithWeapon (Entity target, Weapon weapon) {
-        if (weapon.getOwner() == this){
-            if (damage < target.getHp()) {
-                target.setHp(target.getHp() - damage - weapon.getDamage());
-            } else {
-                target.setHp(0);
-                System.out.println(target.getName() + " был повержен " + name);
-                GameSession.setMonstersKilled(GameSession.getMonstersKilled() + 1);
-                target.setAlive(false);
-            }
+    protected abstract void performAction(Entity target);
 
+    public void takeDamage(int amount, Entity attacker) {
+        if (!isAlive) return;
 
+        hp -= amount;
+        if (hp <= 0) {
+            hp = 0;
+            isAlive = false;
+            onDeath(attacker);
         }
     }
 
-
-    public String getName() {
-        return name;
+    protected void onDeath(Entity killer) {
+        System.out.println(name + " был повержен сущностью " + killer.getName());
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void addWeapon(Weapon weapon) {
+        inventory.add(weapon);
     }
 
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public boolean isAlive() {
-        return isAlive;
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
-    }
+    public String getName() { return name; }
+    public int getHp() { return hp; }
+    public int getBaseDamage() { return baseDamage; }
+    public boolean isAlive() { return isAlive; }
+    public List<Weapon> getInventory() { return List.copyOf(inventory); }
 }
