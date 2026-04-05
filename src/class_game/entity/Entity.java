@@ -10,7 +10,6 @@ public abstract class Entity {
     private int baseDamage;
     private List<Weapon> inventory;
     private boolean isAlive;
-
     public Entity(String name, int hp, int baseDamage) {
         this.name = name;
         this.hp = hp;
