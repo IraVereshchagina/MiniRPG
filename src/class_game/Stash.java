@@ -1,5 +1,4 @@
 package class_game;
-
 public class Stash<T> {
     private T item;
 

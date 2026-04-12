@@ -1,5 +1,4 @@
 package class_game.weapon;
-
 public abstract class Weapon {
     private int damage;
     private String name;
