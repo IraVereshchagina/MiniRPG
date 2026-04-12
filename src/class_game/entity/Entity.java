@@ -1,5 +1,4 @@
 package class_game.entity;
-
 import class_game.weapon.Weapon;
 import java.util.ArrayList;
 import java.util.List;

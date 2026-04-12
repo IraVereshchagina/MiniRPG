@@ -6,5 +6,4 @@ public class Trader {
     public void trade(Weapon weapon) {
         Player.addWeapon(weapon);
     }
-
 }
