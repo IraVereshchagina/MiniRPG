@@ -4,6 +4,7 @@ import class_game.GameConfig;
 import class_game.weapon.Knife;
 import class_game.weapon.Weapon;
 
+
 public class Player extends Entity {
     private int stamina;
     private Weapon currentWeapon;

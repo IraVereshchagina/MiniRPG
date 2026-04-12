@@ -1,9 +1,7 @@
 package class_game.weapon;
-
 public abstract class Weapon {
     private int damage;
     private String name;
-
     public Weapon(int damage, String name) {
         this.name = name;
         this.damage = damage;

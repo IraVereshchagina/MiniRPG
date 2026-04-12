@@ -1,16 +1,13 @@
 package class_game.entity;
-
 import class_game.weapon.Weapon;
 import java.util.ArrayList;
 import java.util.List;
-
 public abstract class Entity {
     private String name;
     private int hp;
     private int baseDamage;
     private List<Weapon> inventory;
     private boolean isAlive;
-
     public Entity(String name, int hp, int baseDamage) {
         this.name = name;
         this.hp = hp;
