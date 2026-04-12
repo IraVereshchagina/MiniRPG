@@ -46,7 +46,7 @@ public abstract class Entity {
         System.out.println(name + " был повержен сущностью " + killer.getName());
     }
 
-    public static void addWeapon(Weapon weapon) {
+    public void addWeapon(Weapon weapon) {
         inventory.add(weapon);
     }
 
