@@ -1,23 +1,12 @@
 package class_game;
 
 import class_game.entity.*;
-import class_game.exceptions.DeadEntityException;
 import class_game.weapon.*;
 
 import java.util.Arrays;
 
 public class MiniRPG {
     public static void main(String[] args) {
-    
-        
-        try {
-            // Пытаемся создать игрока с null именем
-            Player invalidPlayer = new Player(null);
-        } catch (NullPointerException e) {
-            System.out.println("Err: " + e.getMessage());
-            e.printStackTrace();
-        }
-
         // 1. Инициализация мира
         World world = new World();
 
@@ -67,20 +56,17 @@ public class MiniRPG {
         for (Entity fighter : arena.getFighters()){
             System.out.println(fighter.getName() + " : " + fighter.getHp());
         }
-        try {
-            // Игрок бьет зомби
-            player.takeAction(zombie);
 
-            // Зомби бьет игрока
-            zombie.takeAction(player);
+        // Игрок бьет зомби
+        player.takeAction(zombie);
 
-            // Драконы бьют игрока
-            dragon.takeAction(player);
-            ancientDragon.takeAction(player);
-        } catch (DeadEntityException e) {
-            System.out.println("ОШИБКА!!!" + e.getMessage());
-            e.printStackTrace();
-        }
+        // Зомби бьет игрока
+        zombie.takeAction(player);
+
+        // Драконы бьют игрока
+        dragon.takeAction(player);
+        ancientDragon.takeAction(player);
+
         System.out.println("HP Игрока после всех атак: " + player.getHp());
         System.out.println("Убито монстров за сессию: " + GameSession.getMonstersKilled());
     }
