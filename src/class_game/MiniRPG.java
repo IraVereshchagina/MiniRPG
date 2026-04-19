@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 public class MiniRPG {
     public static void main(String[] args) {
-
         try {
             Player invalidPlayer = new Player(null);
         } catch (IllegalArgumentException e) {
