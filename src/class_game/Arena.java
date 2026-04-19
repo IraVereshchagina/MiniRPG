@@ -14,8 +14,7 @@ public class Arena<T extends Entity> {
         fighters = new ArrayList<>();
     }
 
-    public Arena(List<T> fighters)
-    {
+    public Arena(List<T> fighters) {
         if (fighters.size() > MAX_FIGHTERS) {
             throw new ArenaFullException("Невозможно создать арену: вас что то много" + MAX_FIGHTERS);
         }
@@ -26,8 +25,7 @@ public class Arena<T extends Entity> {
         return List.copyOf(fighters);
     }
 
-    public void addFighter(T fighter)
-    {
+    public void addFighter(T fighter) {
         if (fighters.size() >= MAX_FIGHTERS) {
             throw new ArenaFullException("Арена заполнена");
         }

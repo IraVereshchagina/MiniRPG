@@ -9,8 +9,7 @@ public class LootTable<T> {
         this.items = items;
     }
 
-    public void showLootTable()
-    {
+    public void showLootTable() {
         for (T item : items) {
             System.out.println(item.toString());
         }

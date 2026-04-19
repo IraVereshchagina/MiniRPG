@@ -4,14 +4,20 @@ import class_game.exceptions.InventoryFullException;
 import class_game.weapon.Weapon;
 import java.util.ArrayList;
 import java.util.List;
+
 public abstract class Entity {
-private String name;
+    private String name;
     private int hp;
     private int baseDamage;
     private int maxHp;
     private List<Weapon> inventory;
     private boolean isAlive;
-public Entity(String name, int hp, int baseDamage) {
+
+    public Entity(String name, int hp, int baseDamage) {
+        if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("Name of entity must not be empty");
+        }
+
         this.name = name;
         this.hp = hp;
         this.baseDamage = baseDamage;
@@ -48,19 +54,19 @@ public Entity(String name, int hp, int baseDamage) {
         System.out.println(name + " был повержен сущностью " + killer.getName());
     }
 
-public void addWeapon(Weapon weapon) {
+    public void addWeapon(Weapon weapon) {
         if (inventory.size() >= 3) {
             throw new InventoryFullException("Инвентарь полон, нельзя добавить больше 3 оружий");
         }
         inventory.add(weapon);
     }
 
-public String getName() { return name; }
+    public String getName() { return name; }
     public int getHp() { return hp; }
     public int getBaseDamage() { return baseDamage; }
     public int getMaxHp() { return maxHp; }
     public boolean isAlive() { return isAlive; }
-public List<Weapon> getInventory() { return List.copyOf(inventory); }
+    public List<Weapon> getInventory() { return List.copyOf(inventory); }
 
     public void heal(int amount) {
         if (!isAlive) {

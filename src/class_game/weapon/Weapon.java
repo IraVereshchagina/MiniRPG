@@ -1,7 +1,9 @@
 package class_game.weapon;
+
 public abstract class Weapon {
     private int damage;
     private String name;
+
     public Weapon(int damage, String name) {
         if (damage < 0) {
             throw new IllegalArgumentException("DAMAGE < 0 ");

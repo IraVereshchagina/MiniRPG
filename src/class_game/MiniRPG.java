@@ -8,12 +8,10 @@ import java.util.Arrays;
 
 public class MiniRPG {
     public static void main(String[] args) {
-    
-        
+
         try {
-            // Пытаемся создать игрока с null именем
             Player invalidPlayer = new Player(null);
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Err: " + e.getMessage());
             e.printStackTrace();
         }
