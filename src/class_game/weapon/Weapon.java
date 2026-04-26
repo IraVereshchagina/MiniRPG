@@ -3,8 +3,17 @@ package class_game.weapon;
 public abstract class Weapon {
     private int damage;
     private String name;
+    private int durability;
 
-    public Weapon(int damage, String name) {
+    public int getDurability() {
+        return durability;
+    }
+
+    public void setDurability(int durability) {
+        this.durability = durability;
+    }
+
+    public Weapon(int damage, String name, int durability) {
         if (damage < 0) {
             throw new IllegalArgumentException("DAMAGE < 0 ");
         }
