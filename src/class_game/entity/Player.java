@@ -1,6 +1,8 @@
 package class_game.entity;
 
 import class_game.GameConfig;
+import class_game.Spell;
+import class_game.exceptions.InsufficientManaException;
 import class_game.exceptions.WeaponBrokenException;
 import class_game.weapon.Knife;
 import class_game.weapon.Weapon;
@@ -21,8 +23,8 @@ public class Player extends Entity {
     }
 
     public Player(String name, int mana) {
-        this.mana = mana;
         super(name, GameConfig.PLAYER_MAX_HP, GameConfig.BASE_DAMAGE);
+        this.mana = mana;
         this.stamina = GameConfig.DEFAULT_STAMINA;
         this.currentWeapon = new Knife(5, "Кухонный нож", 10);
         addWeapon(this.currentWeapon);
@@ -57,6 +59,13 @@ public class Player extends Entity {
 
         if (!target.isAlive()) {
             stamina = GameConfig.DEFAULT_STAMINA;
+        }
+    }
+    public void castSpell(Spell spell, Entity target) {
+        if (spell.getManaCost() >= this.getMana()) {
+            //назначение эффекта
+        } else  {
+            throw new InsufficientManaException("Маны меньше");
         }
     }
 }

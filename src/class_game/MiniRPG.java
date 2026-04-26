@@ -81,11 +81,7 @@ public class MiniRPG {
         }
         System.out.println("HP Игрока после всех атак: " + player.getHp());
         System.out.println("Убито монстров за сессию: " + GameSession.getMonstersKilled());
-        Spell Sharpness = new Spell(120, "Острота");
-        if (Sharpness.manaCost > player.getMana()) {
-                //назначение эффекта
-        } else  {
-            throw new InsufficientManaException("Маны меньше");
-        }
+        Spell sharpness = new Spell(120, "Острота");
+
     }
 }

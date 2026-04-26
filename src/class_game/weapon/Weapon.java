@@ -3,6 +3,7 @@ package class_game.weapon;
 public abstract class Weapon {
     private int damage;
     private String name;
+    private int durability;
 
     public int getDurability() {
         return durability;
@@ -11,8 +12,6 @@ public abstract class Weapon {
     public void setDurability(int durability) {
         this.durability = durability;
     }
-
-    private int durability;
 
     public Weapon(int damage, String name, int durability) {
         if (damage < 0) {
