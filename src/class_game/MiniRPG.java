@@ -2,6 +2,7 @@ package class_game;
 
 import class_game.entity.*;
 import class_game.exceptions.DeadEntityException;
+import class_game.exceptions.InsufficientManaException;
 import class_game.weapon.*;
 
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 public class MiniRPG {
     public static void main(String[] args) {
         try {
-            Player invalidPlayer = new Player(null);
+            Player invalidPlayer = new Player(null, 100);
         } catch (IllegalArgumentException e) {
             System.out.println("Err: " + e.getMessage());
             e.printStackTrace();
@@ -19,7 +20,7 @@ public class MiniRPG {
         World world = new World();
 
         // 2. Создание игрока и врагов
-        Player player = new Player("Артур");
+        Player player = new Player("Артур", 100);
         Zombie zombie = new Zombie("Ганс", 75);
         Dragon dragon = new Dragon("Смауг", 125);
         AncientDragon ancientDragon = new AncientDragon("Балерион", 250, 40);
@@ -40,13 +41,13 @@ public class MiniRPG {
 
         // 5. Использование Stash
         Stash<Weapon> hiddenStash = new Stash<>();
-        Weapon secretAk47 = new AK47(45, "Золотой AK-47");
+        Weapon secretAk47 = new AK47(45, "Золотой AK-47", 30);
         hiddenStash.put(secretAk47);
         System.out.println("В тайнике спрятано оружие: " + hiddenStash.get().getName());
 
         System.out.println("\n--- Демонстрация работы с оружием ---");
         // 6. Сравнение оружия
-        Weapon awp = new AWP(100, "Снайперская винтовка AWP");
+        Weapon awp = new AWP(100, "Снайперская винтовка AWP", 20);
         Weapon betterWeapon = Weapon.getStrongerWeapon(hiddenStash.get(), awp);
         System.out.println("Сильнейшая пушка: " + betterWeapon.getName() + " (Урон: " + betterWeapon.getDamage() + ")");
 
@@ -80,5 +81,11 @@ public class MiniRPG {
         }
         System.out.println("HP Игрока после всех атак: " + player.getHp());
         System.out.println("Убито монстров за сессию: " + GameSession.getMonstersKilled());
+        Spell Sharpness = new Spell(120, "Острота");
+        if (Sharpness.manaCost > player.getMana()) {
+                //назначение эффекта
+        } else  {
+            throw new InsufficientManaException("Маны меньше");
+        }
     }
 }

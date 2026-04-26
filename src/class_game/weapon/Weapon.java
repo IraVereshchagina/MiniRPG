@@ -4,7 +4,17 @@ public abstract class Weapon {
     private int damage;
     private String name;
 
-    public Weapon(int damage, String name) {
+    public int getDurability() {
+        return durability;
+    }
+
+    public void setDurability(int durability) {
+        this.durability = durability;
+    }
+
+    private int durability;
+
+    public Weapon(int damage, String name, int durability) {
         if (damage < 0) {
             throw new IllegalArgumentException("DAMAGE < 0 ");
         }
