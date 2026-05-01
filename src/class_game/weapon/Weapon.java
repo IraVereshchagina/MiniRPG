@@ -1,6 +1,8 @@
 package class_game.weapon;
 
-public abstract class Weapon {
+import java.io.Serializable;
+
+public abstract class Weapon implements Serializable {
     private int damage;
     private String name;
     private int durability;
