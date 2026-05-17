@@ -29,4 +29,13 @@ public abstract class Weapon implements Serializable {
 
     public int getDamage() { return damage; }
     public String getName() { return name; }
+
+    @Override
+    public String toString() {
+        return "Weapon{" +
+                "damage=" + damage +
+                ", name='" + name + '\'' +
+                ", durability=" + durability +
+                '}';
+    }
 }

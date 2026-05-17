@@ -42,16 +42,16 @@ public class SaveManager {
     private static final String FILE_NAME = "savegame.dat";
     private static final String INV_NAME = "inventory.csv";
     private static final String STATTRACK_NAME = "stats.txt";
-    private static final String INITIAL_STATTRACK_NAME = "initial_stats.txt";
+
 
     public static void save(Player player) {
-        try (BufferedWriter saver = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
-            saver.write(player.getHp());
-            saver.write(player.getName());
-            saver.write(player.getMana());
-            saver.write(player.getNameOfCurrentWeapon());
-            saver.write(player.getDamageOfCurrentWeapon());
-            saver.newLine();
+        try (PrintWriter saver = new PrintWriter(new FileWriter(FILE_NAME, false))) {
+            saver.println(player.getHp());
+            saver.println(player.getName());
+            saver.println(player.getMana());
+            saver.println(player.getNameOfCurrentWeapon());
+            saver.println(player.getDamageOfCurrentWeapon());
+            //saver.newLine();
         } catch (IOException e) {
             System.out.println("Ошибка лога: " + e.getMessage());
         }
@@ -97,18 +97,14 @@ public class SaveManager {
     }
 
     private static int getStats() throws IOException {
-        return Integer.parseInt(readConcretLine(1, INITIAL_STATTRACK_NAME));
+        int lineCount = (int) Files.lines(Paths.get(STATTRACK_NAME)).count();
+        return Integer.parseInt(readConcretLine(lineCount, STATTRACK_NAME));
     }
-
-
     public static void setStats() {
-        try (BufferedWriter setNew = new BufferedWriter(new FileWriter(STATTRACK_NAME, true))) {
-            setNew.write(getStats()  + GameSession.getMonstersKilled());
-        } catch (IOException e) {
-            System.out.println("Ошибка лога: " + e.getMessage());
-        }
-        try (BufferedWriter setInitial = new BufferedWriter(new FileWriter(STATTRACK_NAME, true))) {
-            setInitial.write(getStats()  + GameSession.getMonstersKilled());
+        try (PrintWriter setNew = new PrintWriter(new FileWriter(STATTRACK_NAME, true))) {
+            setNew.println(getStats()  + GameSession.getMonstersKilled());
+
+
         } catch (IOException e) {
             System.out.println("Ошибка лога: " + e.getMessage());
         }

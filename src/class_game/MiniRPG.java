@@ -85,8 +85,10 @@ public class MiniRPG {
         //Spell sharpness = new Spell(120, "Острота");
         Player player1 = new Player("Артур", 100);
         Zombie zombie1 = new Zombie("Ганс", 75);
-        AK47 ak = new AK47(44, "AK47", 101111);
+        AK47 ak = new AK47(444444444, "AK47", 101111);
         player1.addWeapon(ak);
+        player1.setCurrentWeapon(ak);
+        System.out.println(player1.getInventory());
         try {
             player1.takeAction(zombie1);
         } catch (DeadEntityException e) {
@@ -95,5 +97,8 @@ public class MiniRPG {
             throw new RuntimeException(e);
         }
         BattleLogger.cfgWriter();
+        SaveManager.save(player1);
+        SaveManager.setStats();
+        System.out.println(BattleLogger.getDamageCounter());
     }
 }

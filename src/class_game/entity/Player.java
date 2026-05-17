@@ -66,10 +66,10 @@ public class Player extends Entity implements Serializable {
         }
 
         System.out.println(getName() + " атакует " + target.getName() + " предметом " +
-                (currentWeapon != null ? currentWeapon.getName() : "кулаками") + ". Общий урон: " + totalDamage + " [D]");
+                (currentWeapon != null ? currentWeapon.getName() : "кулаками") + ". Общий урон: " + totalDamage);
 
         target.takeDamage(totalDamage, this);
-        BattleLogger.log("Player '" + this.getName() + "' attacked Entity '" + target.getName() + "'. Damage: " + totalDamage);
+        BattleLogger.log("Player '" + this.getName() + "' attacked Entity '" + target.getName() + "'. Damage: " + totalDamage + " [Type: D]");
         if (!target.isAlive()) {
             stamina = GameConfig.DEFAULT_STAMINA;
         }
