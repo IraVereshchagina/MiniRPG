@@ -1,6 +1,8 @@
 package class_game.weapon;
 
-public abstract class Weapon {
+import java.io.Serializable;
+
+public abstract class Weapon implements Serializable {
     private int damage;
     private String name;
     private int durability;
@@ -27,4 +29,13 @@ public abstract class Weapon {
 
     public int getDamage() { return damage; }
     public String getName() { return name; }
+
+    @Override
+    public String toString() {
+        return "Weapon{" +
+                "damage=" + damage +
+                ", name='" + name + '\'' +
+                ", durability=" + durability +
+                '}';
+    }
 }

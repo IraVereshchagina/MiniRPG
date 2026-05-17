@@ -2,7 +2,9 @@ package class_game.entity;
 
 import class_game.GameSession;
 
-public abstract class Monster extends Entity {
+import java.io.Serializable;
+
+public abstract class Monster extends Entity implements Serializable {
     public Monster(String name, int hp, int baseDamage) {
         super(name, hp, baseDamage);
     }

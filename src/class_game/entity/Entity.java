@@ -2,10 +2,19 @@ package class_game.entity;
 import class_game.exceptions.DeadEntityException;
 import class_game.exceptions.InventoryFullException;
 import class_game.weapon.Weapon;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Entity {
+import static class_game.GameConfig.BASE_DRAGON_DAMAGE;
+
+public abstract class Entity implements Serializable {
     private String name;
     private int hp;
     private int baseDamage;
@@ -26,7 +35,7 @@ public abstract class Entity {
         this.isAlive = true;
     }
 
-    public void takeAction(Entity target) throws  DeadEntityException {
+    public void takeAction(Entity target) throws DeadEntityException, IOException {
         if (!this.isAlive()) {
             throw new DeadEntityException(this.getName() + " мертв и не может атаковать!");
         }
@@ -37,7 +46,7 @@ public abstract class Entity {
         performAction(target);
     }
 
-    protected abstract void performAction(Entity target);
+    protected abstract void performAction(Entity target) throws IOException;
 
     public void takeDamage(int amount, Entity attacker) {
         if (!isAlive) return;
@@ -54,10 +63,14 @@ public abstract class Entity {
         System.out.println(name + " был повержен сущностью " + killer.getName());
     }
 
-    public void addWeapon(Weapon weapon) {
+    public void addWeapon(Weapon weapon) throws IOException {
         if (inventory.size() >= 3) {
             throw new InventoryFullException("Инвентарь полон, нельзя добавить больше 3 оружий");
         }
+        StringBuilder configContent = new StringBuilder();
+        configContent.append(weapon.getName()).append("\n");
+        configContent.append(weapon.getDamage());
+        Files.writeString(Path.of("inventory.csv"), configContent.toString());
         inventory.add(weapon);
     }
 
