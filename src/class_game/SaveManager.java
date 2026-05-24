@@ -103,8 +103,6 @@ public class SaveManager {
     public static void setStats() {
         try (PrintWriter setNew = new PrintWriter(new FileWriter(STATTRACK_NAME, true))) {
             setNew.println(getStats()  + GameSession.getMonstersKilled());
-
-
         } catch (IOException e) {
             System.out.println("Ошибка лога: " + e.getMessage());
         }

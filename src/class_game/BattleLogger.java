@@ -8,12 +8,39 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import static class_game.GameConfig.*;
 
 public class BattleLogger {
+
+
+
     private static final String FILE_NAME = "battle_log.txt";
-    
+
+
+    public static void lastLog() throws IOException {
+        List<String> lastLogs = new LinkedList<>();
+        int lineCount = (int) Files.lines(Paths.get(FILE_NAME)).count();
+        int accessLines;
+        if (lineCount == 1) {
+            accessLines = 1;
+        } else if (lineCount == 2) {
+            accessLines = 2;
+        }else if (lineCount == 3) {
+            accessLines = 3;
+        }else if (lineCount == 4) {
+            accessLines = 4;
+        }else {
+            accessLines = 5;
+        }
+        for (int i = lineCount-accessLines; i < lineCount; i++) {
+            lastLogs.add(i, SaveManager.readConcretLine(i, FILE_NAME));
+        }
+    }
+
     public static void log(String message) {
         try (BufferedWriter logger = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             logger.write("[" + LocalTime.now() + "] LOG: " + message);

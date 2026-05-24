@@ -1,4 +1,5 @@
 package class_game.entity;
+import class_game.ArenaCleaner;
 import class_game.exceptions.DeadEntityException;
 import class_game.exceptions.InventoryFullException;
 import class_game.weapon.Weapon;
@@ -33,6 +34,7 @@ public abstract class Entity implements Serializable {
         this.maxHp = hp;
         this.inventory = new ArrayList<>();
         this.isAlive = true;
+        ArenaCleaner.addEntity(this);
     }
 
     public void takeAction(Entity target) throws DeadEntityException, IOException {
