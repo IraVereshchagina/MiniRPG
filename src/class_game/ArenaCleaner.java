@@ -9,11 +9,8 @@ public class ArenaCleaner {
     public static void addEntity(Entity entity) {
         entities.add(entity);
     }
-    public static void removeDeadFighters(Entity entity) {
-        for (Entity e: entities) {
-            if (e.isAlive() == false) {
-                entities.remove(e);
-            }
-        }
+    public static void removeDeadFighters() {
+        entities.removeIf(fighter -> !fighter.isAlive());
+        System.out.println("Removed dead fighters");
     }
 }
